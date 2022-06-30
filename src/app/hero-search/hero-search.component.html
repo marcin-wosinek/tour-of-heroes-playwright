@@ -4,7 +4,7 @@
 
   <ul class="search-result">
     <li *ngFor="let hero of heroes$ | async" >
-      <a routerLink="/detail/{{hero.id}}">
+      <a routerLink="/detail/{{hero.id}}" data-test="search-result-link">
         {{hero.name}}
       </a>
     </li>
