@@ -31,7 +31,7 @@ test.describe('Tour of Heroes pages', () => {
     await page.locator('[data-test="search-result-link"]').click();
 
     await expect(page).toHaveURL(/\/detail\/12/);
-  })
+  });
 
   test('should delete heroes', async ({page}) => {
     await page.goto('http://localhost:4200/heroes');
@@ -41,7 +41,7 @@ test.describe('Tour of Heroes pages', () => {
     page.locator('.delete').first().click();
 
     await expect(page.locator('.delete')).toHaveCount(8);
-  })
+  });
 
   test('should add heroes', async ({page}) => {
     await page.goto('http://localhost:4200/heroes');
@@ -51,5 +51,16 @@ test.describe('Tour of Heroes pages', () => {
     page.locator('.add-button').click();
 
     await expect(page.locator('.delete')).toHaveCount(10);
-  })
+  });
+
+  test('should manage adding many hereos', async ({page}) => {
+    await page.goto('http://localhost:4200/heroes');
+
+    for (let counter = 0; counter < 491; counter++) {
+      await page.locator('#new-hero').fill(`Lorem Ipsum ${counter}`);
+      await page.locator('.add-button').click();
+    }
+
+    await expect(page.locator('.delete')).toHaveCount(500);
+  });
 });
